@@ -8,8 +8,8 @@
 
 <script>
 import moment from "moment"
-import Header from "./Header.vue"
-import Week from "./Week.vue"
+import Header from "./Header"
+import Week from "./Week"
 import Day from "./Day"
 
 export default {
@@ -23,7 +23,7 @@ export default {
       dates: [],
       month: "",
       selectMonth: null,
-      today: moment()
+      today: moment(),
     }
   },
   methods: {
@@ -32,7 +32,7 @@ export default {
     },
     changeNext: function() {
       this.selectMonth = moment(this.selectMonth).add(1, "M")
-    }
+    },
   },
   created() {
     this.selectMonth = moment()
@@ -43,37 +43,68 @@ export default {
       this.dates = []
       const today = moment()
       for (let i = 0; i < moment(this.selectMonth).daysInMonth(); i++) {
-        if (today.isSame(moment(this.selectMonth).startOf("M").add(i, "d"), 'day')) {
-          this.dates[i] = {
-            day: moment(this.selectMonth).startOf("M").add(i, "d").format("DD"),
-            thisMonth: true,
-            today: true
-          }
-          continue
+        const thisDay = moment(this.selectMonth).startOf("M").add(i, "d")
+        const todo = this.$store.getters.todo.find(todo => thisDay.isSame(todo.date, 'day'))
+        let todayFlg = false
+        let todoTitle = ""
+        let todoDescription = ""
+        if (today.isSame(thisDay, 'day')) todayFlg = true
+        if (todo) {
+          todoTitle = todo.title
+          todoDescription = todo.description
         }
         this.dates[i] = {
-          day: moment(this.selectMonth).startOf("M").add(i, "d").format("DD"),
+          day: thisDay.format("DD"),
+          date: thisDay.format("YYYY-MM-DD"),
           thisMonth: true,
-          today: false
+          today: todayFlg,
+          todoTitle: todoTitle,
+          todoDescription: todoDescription
         }
       }
       const lastDays = []
       const startDay = moment(this.selectMonth).startOf("M").day()
       for (let i = 0; i < startDay; i++) {
+        const thisDay = moment(this.selectMonth).startOf("M").add(i, "d")
+        const todo = this.$store.getters.todo.find(todo => thisDay.isSame(todo.date, 'day'))
+        let todayFlg = false
+        let todoTitle = ""
+        let todoDescription = ""
+        if (today.isSame(thisDay, 'day')) todayFlg = true
+        if (todo) {
+          todoTitle = todo.title
+          todoDescription = todo.description
+        }
         lastDays[i] = {
           day: moment(this.selectMonth).startOf("M").add(i - startDay, "d").format("DD"),
+          date: thisDay.format("YYYY-MM-DD"),
           thisMonth: false,
-          today: false
+          today: todayFlg,
+          todoTitle: todoTitle,
+          todoDescription: todoDescription
         }
       } 
       const nextDays = []
       const endDay = moment(this.selectMonth).endOf("M").day()
       let num = 0
       for (let i = 6; i > endDay; i--) {
+        const thisDay = moment(this.selectMonth).startOf("M").add(i, "d")
+        const todo = this.$store.getters.todo.find(todo => thisDay.isSame(todo.date, 'day'))
+        let todayFlg = false
+        let todoTitle = ""
+        let todoDescription = ""
+        if (today.isSame(thisDay, 'day')) todayFlg = true
+        if (todo) {
+          todoTitle = todo.title
+          todoDescription = todo.description
+        }
         nextDays[num] = {
           day: moment(this.selectMonth).endOf("M").subtract(endDay - i, "d").format("DD"),
+          date: thisDay.format("YYYY-MM-DD"),
           thisMonth: false,
-          today: false
+          today: todayFlg,
+          todoTitle: todoTitle,
+          todoDescription: todoDescription
         },
         num++
       }

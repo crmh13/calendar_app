@@ -1,6 +1,6 @@
 <template>
   <div class="month">
-    <h1><a href="#" @click="changePrev()">&lt;</a>{{ month }}<a href="#" @click="changeNext()">&gt;</a></h1>
+    <h1><a href="#" @click.prevent="changePrev()">&lt;</a>{{ month }}<a href="#" @click.prevent="changeNext()">&gt;</a></h1>
   </div>
 </template>
 

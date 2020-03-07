@@ -1,7 +1,7 @@
 <template>
   <div class="calendar">
-  <div v-for="(week, index) in weeks" :key="index" class="week" :class="{ sunday: week === '日', saturday: week === '土'}">
-    {{ week }}
+    <div v-for="(week, index) in weeks" :key="index" class="week" :class="{ sunday: week === '日', saturday: week === '土'}">
+      {{ week }}
     </div>
   </div>
 </template>
@@ -41,4 +41,9 @@ export default {
   color: blue;
 }
 
+@media screen and (max-width: 1000px) {
+  .calendar {
+    width: 100%;
+  }
+}
 </style>
