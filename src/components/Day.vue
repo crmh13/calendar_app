@@ -81,5 +81,10 @@ a {
   .calendar {
     width: 100%;
   }
+  .date {
+    font-size: 16px;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
 }
 </style>

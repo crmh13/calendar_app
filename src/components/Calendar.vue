@@ -42,7 +42,6 @@ export default {
       this.month = moment(this.selectMonth).format("YYYY年MM月")
       this.dates = []
       const today = moment()
-      console.log(this.$store.getters.todo)
       for (let i = 0; i < moment(this.selectMonth).daysInMonth(); i++) {
         const thisDay = moment(this.selectMonth).startOf("M").add(i, "d")
         const todo = this.$store.getters.todo.find(todo => thisDay.isSame(todo.date, 'day'))
@@ -54,6 +53,7 @@ export default {
           todoTitle = todo.title
           todoDescription = todo.description
         }
+        console.log(todayFlg)
         this.dates[i] = {
           day: thisDay.format("DD"),
           date: thisDay.format("YYYY-MM-DD"),
