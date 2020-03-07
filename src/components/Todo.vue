@@ -29,7 +29,18 @@ export default {
         title: this.date.todoTitle,
         description: this.date.todoDescription
       }
-      this.$store.commit('save', date)
+      const thisDay = this.$store.getters.todo.find(el => this.date.date === el.date)
+      if (this.date.todoTitle === '' && this.date.todoDescription === '') {
+        this.$store.commit('delete', date)
+        this.$emit('close')
+        return 
+      }
+      if (!thisDay) {
+        this.$store.commit('save', date)
+      }
+      if (thisDay) {
+        this.$store.commit('update', date)
+      }
       this.$emit('close')
     }
   }
