@@ -114,7 +114,7 @@ dd {
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 470px) {
   dd {
     width: 80%;
   }
