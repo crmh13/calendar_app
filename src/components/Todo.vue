@@ -116,6 +116,7 @@ dd {
 
 @media screen and (max-width: 470px) {
   dd {
+    margin-top: 5px;
     width: 80%;
   }
 }
